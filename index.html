@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Midterm</title>
-    <script>var data = 
+    <!-- <script>var data = 
             [
               {
                 "FileNo_": "INS181112253",
@@ -11407,7 +11407,7 @@
                 "Lat_": "22.651822908",
                 "Lng_": "120.303497256"
               }
-            ];</script>
+            ];</script> -->
 </head>
 <body>
     <select class="dict">
@@ -11425,54 +11425,54 @@
     <ul class="list"></ul>
 
     <script> 
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('get', 'https://work1999.kcg.gov.tw/open1999/ServiceRequestsQuery.asmx/ServiceRequestsQuery');
-        // xhr.send();
-        // xhr.onload = function() {
-        //     var data = JSON.parse(xhr.responseText);
-        // }
-        var district = [];
-        var types = [];
-
-        for (var i=0;data.length>i;i++) {
-            if (district.includes(data[i].ZipName_)) {
-                continue;
-            } else {
-                district.push(data[i].ZipName_);
-            }
-        }
-
-        for (var i=0;district.length>i;i++) {
-            document.querySelector('.dict').innerHTML += '<option value=' + district[i] + '>' + district[i] + '</option>';
-        }
-
-        for (var i=0;data.length>i;i++) {
-            if (types.includes(data[i].InformDesc_)) {
-                continue;
-            } else {
-                types.push(data[i].InformDesc_);
-            }
-        }
-        
-        for (var i=0;types.length>i;i++) {
-            document.querySelector('.type').innerHTML += '<option value='+types[i]+'>'+types[i]+'</option>';
-        }
-
-        document.querySelector(".btn").addEventListener("click", function(e) {
-            var str = '';
-            var count = 0;
-            var _district = document.querySelector('.dict').value;
-            var _types = document.querySelector('.type').value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', 'https://work1999.kcg.gov.tw/open1999/ServiceRequestsQuery.asmx/ServiceRequestsQuery');
+        xhr.send();
+        xhr.onload = function() {
+            var data = JSON.parse(xhr.responseText);
+            var district = [];
+            var types = [];
 
             for (var i=0;data.length>i;i++) {
-                if (data[i].ZipName_ == _district && data[i].InformDesc_ == _types) {
-                    count++;
-                    str += '<li>' + '<h4>地點：' + data[i].ZipName_ + data[i].address_ + '</h4><h5>報案狀況：' + data[i].BeforeDesc_ + '</h5></li>';
+                if (district.includes(data[i].ZipName_)) {
+                    continue;
+                } else {
+                    district.push(data[i].ZipName_);
                 }
             }
-            document.querySelector('.title').innerHTML = _district + " " + _types + "有" + count + "處";
-            document.querySelector('.list').innerHTML = str;
-        });
+
+            for (var i=0;district.length>i;i++) {
+                document.querySelector('.dict').innerHTML += '<option value=' + district[i] + '>' + district[i] + '</option>';
+            }
+
+            for (var i=0;data.length>i;i++) {
+                if (types.includes(data[i].InformDesc_)) {
+                    continue;
+                } else {
+                    types.push(data[i].InformDesc_);
+                }
+            }
+            
+            for (var i=0;types.length>i;i++) {
+                document.querySelector('.type').innerHTML += '<option value='+types[i]+'>'+types[i]+'</option>';
+            }
+
+            document.querySelector(".btn").addEventListener("click", function(e) {
+                var str = '';
+                var count = 0;
+                var _district = document.querySelector('.dict').value;
+                var _types = document.querySelector('.type').value;
+
+                for (var i=0;data.length>i;i++) {
+                    if (data[i].ZipName_ == _district && data[i].InformDesc_ == _types) {
+                        count++;
+                        str += '<li>' + '<h4>地點：' + data[i].ZipName_ + data[i].address_ + '</h4><h5>報案狀況：' + data[i].BeforeDesc_ + '</h5></li>';
+                    }
+                }
+                document.querySelector('.title').innerHTML = _district + " " + _types + "有" + count + "處";
+                document.querySelector('.list').innerHTML = str;
+            });
+        }
     </script>
 
 </body>
